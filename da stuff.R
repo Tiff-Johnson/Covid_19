@@ -186,20 +186,21 @@ a <- (115855)
 rate <- c(555/a, 653/a, 941/a, 1434/a, 2118/a, 2927/a, 5578/a, 6166/a, 8234/a, 9927/a, 12038/a, 16787/a, 19881/a, 23892/a, 27636/a, 30818/a, 34392/a, 37121/a, 40151/a, 42763/a, 44803/a, 45222/a, 60370/a, 66887/a, 69032/a, 71226/a, 73260/a, 75138/a, 75641/a, 76199/a, 76843/a, 78599/a, 78985/a, 79570/a, 80415/a, 81397/a, 82756/a, 84122/a, 86013/a, 88371/a, 90309/a, 92843/a, 95123/a, 97885/a, 101799/a, 105835/a, 109836/a)
 
 
-rate_date_sep <- rate_date %>% 
-  separate(col = date, into = c("day", "month", "year"), sep = "-")
+date <- d_c_r %>% 
+  select(1)
+
 
 rate_date <- data.frame(date, rate)
 
 ggplot(data = rate_date, aes(x = date, y = rate)) +
   geom_line(aes(group = 1))+
-  xlim("22-1-20", "5-2-20", "10-2-20", "15-2-20", "29-2-20", "8-3-20")+
+  xlim("1/22/20", "2/5/20", "2/10/20", "2/15/20", "2/29/20", "3/8/20")+
   theme_bw()+
   theme_pubclean()+
-labs(title = "Global Infection Rate",
-     x = "Date",
-     y = "Rate (%)")
-  
+  labs(title = "Global Infection Rate",
+       x = "Date",
+       y = "Rate (%)")
+
 
 # confirmed cases per country
 
@@ -230,7 +231,7 @@ country6 <- group_country %>%
 
 
 bar1 <- country1 %>% 
-ggplot(aes(x = country_region, y = sum_cases))+
+  ggplot(aes(x = country_region, y = sum_cases))+
   geom_bar(stat = "identity", position = "dodge", width = .5) +
   theme_bw() + 
   labs(title = "Total Confirmed Cases per Country",
@@ -238,7 +239,7 @@ ggplot(aes(x = country_region, y = sum_cases))+
        x = "Country", 
        y = "Confrimed Cases") +
   theme_pubclean()+ 
-theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 bar1
 
@@ -258,8 +259,8 @@ bar3 <- country3 %>%
   geom_bar(stat = "identity", position = "dodge", width = .5) +
   theme_bw() + 
   labs(
-       x = "Country", 
-       y = "Confrimed Cases") +
+    x = "Country", 
+    y = "Confrimed Cases") +
   theme_pubclean()+ 
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
@@ -270,7 +271,7 @@ bar4 <- country4 %>%
   geom_bar(stat = "identity", position = "dodge", width = .5) +
   theme_bw() + 
   labs (x = 
-       y = "Confrimed Cases") +
+          y = "Confrimed Cases") +
   theme_pubclean()+ 
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
@@ -282,8 +283,8 @@ bar5 <- country5 %>%
   geom_bar(stat = "identity", position = "dodge", width = .5) +
   theme_bw() + 
   labs( 
-       x = "Country", 
-       y = "Confrimed Cases") +
+    x = "Country", 
+    y = "Confrimed Cases") +
   theme_pubclean()+ 
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
@@ -294,8 +295,8 @@ bar6 <- country6 %>%
   geom_bar(stat = "identity", position = "dodge", width = .5) +
   theme_bw() + 
   labs(
-       x = "Country", 
-       y = "Confrimed Cases") +
+    x = "Country", 
+    y = "Confrimed Cases") +
   theme_pubclean()+ 
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
@@ -350,7 +351,7 @@ rate_deaths <- c(17/b, 18/b, 26/b, 42/b, 56/b, 82/b, 131/b, 133/b, 171/b, 213/b,
 
 date <- rate_date %>% 
   select(1)
- 
+
 rate_deaths_date <- data.frame(date, rate_deaths)
 
 ggplot(data = rate_deaths_date, aes(x = date, y = rate_deaths)) +
@@ -433,7 +434,7 @@ bar4d <- country4d %>%
   geom_bar(stat = "identity", position = "dodge", width = .5) +
   theme_bw() + 
   labs (x = "Country",
-          y = "Deaths") +
+        y = "Deaths") +
   theme_pubclean()+ 
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
@@ -478,13 +479,13 @@ d_c_r2 <- d_c_r %>%
   select(5,6) %>% 
   group_by(date) %>% 
   summarise(cases = sum(cases))
-  
-  
-  d_c_r3 <- d_c_r2 %>% 
-    arrange(cases)
-  
-  deaths1 <- Deaths_sum_rate %>% 
-    arrange(total_deaths)
+
+
+d_c_r3 <- d_c_r2 %>% 
+  arrange(cases)
+
+deaths1 <- Deaths_sum_rate %>% 
+  arrange(total_deaths)
 
 cases <- d_c_r3 %>% 
   select(2)
@@ -499,43 +500,32 @@ cases_deaths <- data.frame(cases, deaths)
 ggplot(data = cases_deaths, aes(x = cases, y = total_deaths)) +
   geom_point(stat = "identity", position = "identity",colour = "purple", size = 0.9) +
   geom_smooth(method = "lm", size = 1, colour= "black")+
-theme_bw()+
+  theme_bw()+
   theme_pubclean()+
   labs(title = "Deaths per Case",
        x = "Cases",
        y = "Deaths")
 
+age <- c("80+ years old", "70-79 years old", "60-69 years old", "50-59 yearsold", "40-49 years old", "30-39 years old", "20-29 years old", "10-19years old", "0-9 years old")
+death_rate_confirmed_cases <- c("21.9%")
+death_rate_all_cases <- c("14.8%", "8.0%", "3.6%", "1.3%", "0.4%", "0.2%", "0.2%", "0.2%", "no fatalities")
+
+death_rate_age <- data.frame(age, death_rate_confirmed_cases, death_rate_all_cases)
+
+aget <- data.frame(age)
+death_rate_confirmed_casest <- data.frame(death_rate_confirmed_cases)
+death_rate_all_casest <- data.frame(death_rate_all_cases)
+
+age_death <- merge(aget, death_rate_confirmed_casest, by = 0, all = TRUE, na.rm = TRUE) [-1] 
+
+age_death <- merge(age_death, death_rate_all_casest,  by = 0, all = TRUE, na.rm = TRUE) [-1] 
+
+# Age Graph
+
+write.csv(age_death, file="C:/Users/PC/Documents/Covid_19/file.csv")
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# distribution map
-
-
-
-library(maps)
-remotes::install_github("GuangchuangYu/nCov2019")
-
-library(nCov2019)
-x <- get_nCov2019(lang='en')
-
-require(nCov2019)
-x = get_nCov2019(lang='en')
-plot(x)
 
 
 
